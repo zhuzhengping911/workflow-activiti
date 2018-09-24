@@ -1,0 +1,21 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    beans:
+      enabled: false
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ActivitiTest
+    username: root
+    password: 123
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  activiti:
+    history-level: full
+    check-process-definitions: false
+server:
+  context-path: "/workflow"
+  port: 8081
