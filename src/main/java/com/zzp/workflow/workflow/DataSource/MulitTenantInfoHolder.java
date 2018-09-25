@@ -13,6 +13,8 @@ import java.util.Collection;
 @Component
 public class MulitTenantInfoHolder implements TenantInfoHolder {
 
+    private ThreadLocal<String> tenantId = new ThreadLocal<>();
+
     @Override
     public Collection<String> getAllTenants() {
         return null;
@@ -20,16 +22,16 @@ public class MulitTenantInfoHolder implements TenantInfoHolder {
 
     @Override
     public void setCurrentTenantId(String s) {
-
+        tenantId.set(s);
     }
 
     @Override
     public String getCurrentTenantId() {
-        return null;
+        return tenantId.get();
     }
 
     @Override
     public void clearCurrentTenantId() {
-
+        tenantId.remove();
     }
 }
