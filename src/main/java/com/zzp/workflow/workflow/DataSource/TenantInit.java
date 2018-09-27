@@ -2,7 +2,7 @@ package com.zzp.workflow.workflow.DataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zzp.workflow.workflow.dao.EngineConfigMapper;
-import com.zzp.workflow.workflow.pojo.MUltiDataSource;
+import com.zzp.workflow.workflow.pojo.MultiDataSource;
 import org.activiti.engine.impl.cfg.multitenant.MultiSchemaMultiTenantProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +40,7 @@ public class TenantInit implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        List<MUltiDataSource> dataSourceList = engineConfigMapper.getAll();
+        List<MultiDataSource> dataSourceList = engineConfigMapper.getAll();
 
         dataSourceList.stream().
                 forEach(x -> {

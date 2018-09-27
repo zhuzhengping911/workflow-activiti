@@ -1,6 +1,6 @@
 package com.zzp.workflow.workflow.dao;
 
-import com.zzp.workflow.workflow.pojo.MUltiDataSource;
+import com.zzp.workflow.workflow.pojo.MultiDataSource;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,5 +12,5 @@ import java.util.List;
 @Mapper
 public interface EngineConfigMapper {
 
-    List<MUltiDataSource> getAll();
+    List<MultiDataSource> getAll();
 }

@@ -7,7 +7,7 @@ import lombok.Data;
  * on 2018/9/27.
  */
 @Data
-public class MUltiDataSource {
+public class MultiDataSource {
 
     public String userName;
 

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.zzp.workflow.workflow.dao.EngineConfigMapper">
 
-    <resultMap id="resultMap" type="com.zzp.workflow.workflow.pojo.MUltiDataSource">
+    <resultMap id="resultMap" type="com.zzp.workflow.workflow.pojo.MultiDataSource">
         <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
         <result column="PASSWORD" property="pwd" jdbcType="VARCHAR" />
         <result column="DRIVER" property="driver" jdbcType="VARCHAR" />
