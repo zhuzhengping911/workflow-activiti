@@ -21,5 +21,6 @@ server:
   port: 8081
 tenantInit:
   poolMaximumActiveConnections: 300
+#  mybatis相对位置指定
 mybatis:
   mapper-locations: classpath:/mapper/*.xml

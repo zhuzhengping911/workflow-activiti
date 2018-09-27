@@ -5,6 +5,7 @@ import lombok.Data;
 /**
  * Created by zhengping.Zhu
  * on 2018/9/27.
+ * 租户实例
  */
 @Data
 public class MultiDataSource {

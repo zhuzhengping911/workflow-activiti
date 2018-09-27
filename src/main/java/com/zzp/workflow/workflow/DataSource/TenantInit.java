@@ -20,6 +20,7 @@ import java.util.List;
  * SpringApplication.run()之前执行，非常适合在应用程序启动之初进行一些数据初始化的工作。
  *
  * 这里预先获取数据库已经存在的租户信息（DB）
+ * 注册进MultiSchemaMultiTenantProcessEngineConfiguration
  */
 @Component
 public class TenantInit implements CommandLineRunner {

@@ -10,6 +10,10 @@ import java.util.List;
 /**
  * Created by zhengping.Zhu
  * on 2018/9/25.
+ * 此类实现TenantInfoHolder，也是多租户的关键
+ * tenantId代表租户id，也是用来鉴别数据库的key
+ * 通常与ThreadLocal合用，每一次的流程指定目前的租户
+ * allTenantId是目前程序中所有的租户，可用来校验添加等等
  *
  */
 @Component

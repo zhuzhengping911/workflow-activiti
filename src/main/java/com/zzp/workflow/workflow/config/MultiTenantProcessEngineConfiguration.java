@@ -20,6 +20,14 @@ public class MultiTenantProcessEngineConfiguration {
     @Autowired
     private MulitTenantInfoHolder mulitTenantInfoHolder;
 
+    /**
+     * 多租户引擎的创建
+     * 此处关键是传入mulitTenantInfoHolder
+     * 不可以直接返回Processinge
+     * 因为需要MultiSchemaMultiTenantProcessEngineConfiguration来添加数据库中已有的租户
+     * 直接创建processinge的话，MultiSchemaMultiTenantProcessEngineConfiguration会不存在，后面无法添加
+     * @return
+     */
     @Bean
     public MultiSchemaMultiTenantProcessEngineConfiguration buildMultiSchemaMultiTenantProcessEngineConfiguration(){
 
@@ -31,6 +39,10 @@ public class MultiTenantProcessEngineConfiguration {
         return multiTenantProcessEngineConfiguration;
     }
 
+    /**
+     * 返回processinge
+     * @return
+     */
     @Primary
     @Bean
     public ProcessEngine buildProcessinge(){
