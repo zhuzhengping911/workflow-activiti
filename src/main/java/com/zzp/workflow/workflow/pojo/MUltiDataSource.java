@@ -19,6 +19,6 @@ public class MUltiDataSource {
 
     public String currentId;
 
-    public String enabled;
+    public int enabled;
 
 }

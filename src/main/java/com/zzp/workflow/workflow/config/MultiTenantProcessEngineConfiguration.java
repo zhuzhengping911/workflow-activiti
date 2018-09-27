@@ -4,9 +4,9 @@ import com.zzp.workflow.workflow.DataSource.MulitTenantInfoHolder;
 import org.activiti.engine.*;
 import org.activiti.engine.impl.cfg.multitenant.MultiSchemaMultiTenantProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * Created by zhengping.Zhu
@@ -14,22 +14,29 @@ import org.springframework.context.annotation.Configuration;
  * 多租户引擎config
  */
 @Configuration
-@ConfigurationProperties(prefix = "")
 public class MultiTenantProcessEngineConfiguration {
+
 
     @Autowired
     private MulitTenantInfoHolder mulitTenantInfoHolder;
 
     @Bean
-    public ProcessEngine buildMultiSchemaMultiTenantProcessEngineConfiguration(){
+    public MultiSchemaMultiTenantProcessEngineConfiguration buildMultiSchemaMultiTenantProcessEngineConfiguration(){
 
 
         MultiSchemaMultiTenantProcessEngineConfiguration multiTenantProcessEngineConfiguration =
                 new MultiSchemaMultiTenantProcessEngineConfiguration(mulitTenantInfoHolder);
-        multiTenantProcessEngineConfiguration.setDatabaseType(MultiSchemaMultiTenantProcessEngineConfiguration.DATABASE_TYPE_H2);
-        multiTenantProcessEngineConfiguration.setDatabaseSchemaUpdate(MultiSchemaMultiTenantProcessEngineConfiguration.DB_SCHEMA_UPDATE_DROP_CREATE);
-        return multiTenantProcessEngineConfiguration.buildProcessEngine();
+        multiTenantProcessEngineConfiguration.setDatabaseType(MultiSchemaMultiTenantProcessEngineConfiguration.DATABASE_TYPE_MYSQL);
+        multiTenantProcessEngineConfiguration.setDatabaseSchemaUpdate(MultiSchemaMultiTenantProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+        return multiTenantProcessEngineConfiguration;
     }
+
+    @Primary
+    @Bean
+    public ProcessEngine buildProcessinge(){
+        return buildMultiSchemaMultiTenantProcessEngineConfiguration().buildProcessEngine();
+    }
+
 
     /**
      * 运行service，启动流程使用
@@ -37,7 +44,7 @@ public class MultiTenantProcessEngineConfiguration {
      */
     @Bean
     public RuntimeService runtimeService() {
-        return buildMultiSchemaMultiTenantProcessEngineConfiguration().getRuntimeService();
+        return buildProcessinge().getRuntimeService();
     }
 
     /**
@@ -46,7 +53,7 @@ public class MultiTenantProcessEngineConfiguration {
      */
     @Bean
     public TaskService taskService() {
-        return buildMultiSchemaMultiTenantProcessEngineConfiguration().getTaskService();
+        return buildProcessinge().getTaskService();
     }
 
     /**
@@ -55,7 +62,7 @@ public class MultiTenantProcessEngineConfiguration {
      */
     @Bean
     public HistoryService historyService() {
-        return buildMultiSchemaMultiTenantProcessEngineConfiguration().getHistoryService();
+        return buildProcessinge().getHistoryService();
     }
 
     /**
@@ -64,7 +71,7 @@ public class MultiTenantProcessEngineConfiguration {
      */
     @Bean
     public FormService formService() {
-        return buildMultiSchemaMultiTenantProcessEngineConfiguration().getFormService();
+        return buildProcessinge().getFormService();
     }
 
     /**
@@ -73,7 +80,7 @@ public class MultiTenantProcessEngineConfiguration {
      */
     @Bean
     public IdentityService identityService() {
-        return buildMultiSchemaMultiTenantProcessEngineConfiguration().getIdentityService();
+        return buildProcessinge().getIdentityService();
     }
 
     /**
@@ -82,6 +89,6 @@ public class MultiTenantProcessEngineConfiguration {
      */
     @Bean
     public ManagementService managementService() {
-        return buildMultiSchemaMultiTenantProcessEngineConfiguration().getManagementService();
+        return buildProcessinge().getManagementService();
     }
 }

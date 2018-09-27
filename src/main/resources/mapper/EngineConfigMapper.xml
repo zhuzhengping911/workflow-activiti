@@ -10,7 +10,7 @@
         <result column="DRIVER" property="driver" jdbcType="VARCHAR" />
         <result column="DATABASE_URL" property="url" jdbcType="VARCHAR" />
         <result column="CURRENT_ID" property="currentId" jdbcType="VARCHAR" />
-        <result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
+        <result column="ENABLED" property="enabled" jdbcType="INTEGER" />
     </resultMap>
 
     <sql id="Base_Column_List" >

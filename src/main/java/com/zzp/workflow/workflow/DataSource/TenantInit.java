@@ -24,8 +24,8 @@ import java.util.List;
 @Component
 public class TenantInit implements CommandLineRunner {
 
-    @Value("tenantInit.poolMaximumActiveConnections")
-    int poolMaximumActiveConnections;
+    @Value("${tenantInit.poolMaximumActiveConnections}")
+    private String poolMaximumActiveConnections;
 
     @Autowired
     @Lazy
@@ -50,7 +50,7 @@ public class TenantInit implements CommandLineRunner {
                             dataSource.setUsername(x.getUserName());
                             dataSource.setPassword(x.getPwd());
                             dataSource.setUrl(x.getUrl());
-                            dataSource.setMaxActive(poolMaximumActiveConnections);
+                            dataSource.setMaxActive(Integer.valueOf(poolMaximumActiveConnections));
                             MulitTenantInfoHolder.addTenant(x.getCurrentId());
                             multiSchemaMultiTenantProcessEngineConfiguration.registerTenant(x.getCurrentId(),dataSource);
                         }
