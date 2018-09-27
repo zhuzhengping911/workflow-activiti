@@ -8,3 +8,6 @@ CREATE TABLE `MULTI_DATA_SOURCE` (
   `ENABLED` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
+insert into `ActivitiTest`.`MULTI_DATA_SOURCE` ( `DRIVER`, `CURRENT_ID`, `ENABLED`, `USER_NAME`, `PASSWORD`, `ID`, `DATABASE_URL`) values ( 'com.mysql.jdbc.Driver', 'one', '1', 'root', '123', '1', 'jdbc:mysql://localhost:3306/current_one');
+insert into `ActivitiTest`.`MULTI_DATA_SOURCE` ( `DRIVER`, `CURRENT_ID`, `ENABLED`, `USER_NAME`, `PASSWORD`, `ID`, `DATABASE_URL`) values ( 'com.mysql.jdbc.Driver', 'sec', '1', 'root', '123', '2', 'jdbc:mysql://localhost:3306/current_sec');
