@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzp.workflow.workflow.dao.EngineConfigMapper">
+
+    <resultMap id="resultMap" type="com.zzp.workflow.workflow.pojo.MUltiDataSource">
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="pwd" jdbcType="VARCHAR" />
+        <result column="DRIVER" property="driver" jdbcType="VARCHAR" />
+        <result column="DATABASE_URL" property="url" jdbcType="VARCHAR" />
+        <result column="CURRENT_ID" property="currentId" jdbcType="VARCHAR" />
+        <result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    USER_NAME, PASSWORD, DRIVER, DATABASE_URL, CURRENT_ID,ENABLED
+    </sql>
+
+    <select id="getAll" resultMap="resultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ActivitiTest.MULTI_DATA_SOURCE
+        where ENABLED = '1'
+    </select>
+</mapper>

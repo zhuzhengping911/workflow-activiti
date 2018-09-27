@@ -1,9 +1,16 @@
 package com.zzp.workflow.workflow.DataSource;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.zzp.workflow.workflow.dao.EngineConfigMapper;
+import com.zzp.workflow.workflow.pojo.MUltiDataSource;
 import org.activiti.engine.impl.cfg.multitenant.MultiSchemaMultiTenantProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by zhengping.Zhu
@@ -14,19 +21,41 @@ import org.springframework.context.annotation.Lazy;
  *
  * 这里预先获取数据库已经存在的租户信息（DB）
  */
-
+@Component
 public class TenantInit implements CommandLineRunner {
+
+    @Value("tenantInit.poolMaximumActiveConnections")
+    int poolMaximumActiveConnections;
 
     @Autowired
     @Lazy
     private MulitTenantInfoHolder mulitTenantInfoHolder;
 
     @Autowired
+    private EngineConfigMapper engineConfigMapper;
+
+    @Autowired
     private MultiSchemaMultiTenantProcessEngineConfiguration multiSchemaMultiTenantProcessEngineConfiguration;
 
     @Override
     public void run(String... strings) throws Exception {
-//        multiSchemaMultiTenantProcessEngineConfiguration.registerTenant();
+
+        List<MUltiDataSource> dataSourceList = engineConfigMapper.getAll();
+
+        dataSourceList.stream().
+                forEach(x -> {
+                            DruidDataSource dataSource = new DruidDataSource();
+                            dataSource.setDriverClassLoader(this.getClass().getClassLoader());
+                            dataSource.setDriverClassName(x.getDriver());
+                            dataSource.setUsername(x.getUserName());
+                            dataSource.setPassword(x.getPwd());
+                            dataSource.setUrl(x.getUrl());
+                            dataSource.setMaxActive(poolMaximumActiveConnections);
+                            MulitTenantInfoHolder.addTenant(x.getCurrentId());
+                            multiSchemaMultiTenantProcessEngineConfiguration.registerTenant(x.getCurrentId(),dataSource);
+                        }
+                        );
+
 
     }
 }
