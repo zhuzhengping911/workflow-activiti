@@ -15,9 +15,9 @@
     <subProcess id="thirdTask" name="子流程">
       <startEvent id="startevent2" name="Start"></startEvent>
       <endEvent id="endevent2" name="End"></endEvent>
-      <callActivity id="callactivity1" name="Call activity"></callActivity>
-      <sequenceFlow id="flow5" sourceRef="startevent2" targetRef="callactivity1"></sequenceFlow>
-      <sequenceFlow id="flow6" sourceRef="callactivity1" targetRef="endevent2"></sequenceFlow>
+      <callActivity id="subTask" name="启动另一个流程" calledElement="${my_sub_pro}"></callActivity>
+      <sequenceFlow id="flow5" sourceRef="startevent2" targetRef="subTask"></sequenceFlow>
+      <sequenceFlow id="flow6" sourceRef="subTask" targetRef="endevent2"></sequenceFlow>
     </subProcess>
     <boundaryEvent id="boundarytimer1" name="Timer" attachedToRef="thirdTask" cancelActivity="true">
       <timerEventDefinition>
@@ -60,7 +60,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="262.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="callactivity1" id="BPMNShape_callactivity1">
+      <bpmndi:BPMNShape bpmnElement="subTask" id="BPMNShape_subTask">
         <omgdc:Bounds height="55.0" width="105.0" x="850.0" y="252.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundarytimer1" id="BPMNShape_boundarytimer1">
