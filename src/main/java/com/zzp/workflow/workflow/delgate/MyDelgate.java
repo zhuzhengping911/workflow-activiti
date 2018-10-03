@@ -12,6 +12,6 @@ public class MyDelgate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) {
-
+        System.out.println("流程已经启动");
     }
 }
