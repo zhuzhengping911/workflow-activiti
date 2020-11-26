@@ -1,7 +1,9 @@
 package com.zzp.workflow.workflow.controller;
 
+import com.zzp.workflow.workflow.delgate.MyDelgate;
 import org.activiti.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +14,7 @@ import java.util.Map;
  * Created by zhuzhengping
  * on 2018/10/2.
  */
-@RestController
+@RestController("receive")
 public class ReceiveController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class ReceiveController {
 
     }
 
-    @RequestMapping("/startInstance")
+    @GetMapping("/startInstance")
     public String startInstance(@RequestBody Map requestMap){
         return "流程启动成功";
     }
