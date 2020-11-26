@@ -2,9 +2,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.zzp.workflow.workflow.dao.EngineConfigMapper">
+<mapper namespace="com.zzp.workflow.workflow.DataSource.dao.EngineConfigMapper">
 
-    <resultMap id="resultMap" type="com.zzp.workflow.workflow.pojo.MultiDataSource">
+    <sql id="Table_Name">MULTI_DATA_SOURCE</sql>
+
+    <resultMap id="resultMap" type="com.zzp.workflow.workflow.DataSource.domin.MultiDataSource">
         <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
         <result column="PASSWORD" property="pwd" jdbcType="VARCHAR" />
         <result column="DRIVER" property="driver" jdbcType="VARCHAR" />
@@ -20,7 +22,41 @@
     <select id="getAll" resultMap="resultMap">
         select
         <include refid="Base_Column_List"/>
-        from ActivitiTest.MULTI_DATA_SOURCE
+        from MULTI_DATA_SOURCE
         where ENABLED = '1'
+    </select>
+
+    <insert id="insert" parameterType="com.zzp.workflow.workflow.DataSource.domin.MultiDataSource">
+        insert into
+        <include refid="Table_Name"/>(
+        USER_NAME,PASSWORD,DRIVER,DATABASE_URL,CURRENT_ID,ENABLED)
+        values(#{userName,jdbcType=VARCHAR},
+        #{pwd,jdbcType=VARCHAR},
+        #{driver,jdbcType=VARCHAR},
+        #{url,jdbcType=VARCHAR},
+        #{currentId,jdbcType=VARCHAR},
+        #{enabled,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateStatus" parameterType="Map">
+        update
+        <include refid="Table_Name"/>
+        set ENABLED = #{enable,jdbcType=INTEGER}
+        where DATA_NAME = #{tenantId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findByDataSourceName" resultMap="resultMap" parameterType="String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        <include refid="Table_Name"/>
+        WHERE ENABLED = '1'
+        <if test="dataSourceName != null">
+            and DATA_NAME = #{dataSourceName}
+        </if>
+        <if test="current_id != null">
+            and CURRENT_ID = #{current_id}
+        </if>
     </select>
 </mapper>

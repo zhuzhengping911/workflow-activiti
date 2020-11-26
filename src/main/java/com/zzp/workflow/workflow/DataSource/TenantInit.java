@@ -1,8 +1,8 @@
 package com.zzp.workflow.workflow.DataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.zzp.workflow.workflow.dao.EngineConfigMapper;
-import com.zzp.workflow.workflow.pojo.MultiDataSource;
+import com.zzp.workflow.workflow.DataSource.domin.MultiDataSource;
+import com.zzp.workflow.workflow.DataSource.dao.EngineConfigMapper;
 import org.activiti.engine.impl.cfg.multitenant.MultiSchemaMultiTenantProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
